@@ -14,7 +14,7 @@ app.get('*', function(req, res) {
   request.get(fullURL, function(err,reply,body){
     var data = JSON.parse(body)
     var items = data.item
-    
+
     var items = items.map(function(item){
 
       var geom = item.geometry[0]
@@ -49,8 +49,9 @@ app.get('*', function(req, res) {
   })
 });
 
+var port = process.env.port  ? process.env.port : 3000
 
-var server = app.listen(3000, function () {
+var server = app.listen(port, function () {
   var host = server.address().address;
   var port = server.address().port;
 
