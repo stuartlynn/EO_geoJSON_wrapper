@@ -12,7 +12,13 @@ app.get('*', function(req, res) {
     return
   }
   request.get(fullURL, function(err,reply,body){
-    var data = JSON.parse(body)
+    try{
+      var data = JSON.parse(body)
+    }
+    catch{
+      res.status(404).send('Not found');
+    }
+
     var items = data.item
 
     var items = items.map(function(item){
