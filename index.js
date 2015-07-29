@@ -49,7 +49,7 @@ app.get('*', function(req, res) {
   })
 });
 
-var port = process.env.port  ? process.env.port : 3000
+var port = process.env.port 
 
 var server = app.listen(port, function () {
   var host = server.address().address;
