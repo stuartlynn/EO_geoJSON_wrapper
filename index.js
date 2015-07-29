@@ -15,7 +15,7 @@ app.get('*', function(req, res) {
     try{
       var data = JSON.parse(body)
     }
-    catch(){
+    catch(err){
       res.status(404).send('Not found');
     }
 
