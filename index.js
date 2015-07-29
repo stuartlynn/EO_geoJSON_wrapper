@@ -40,7 +40,7 @@ app.get('*', function(req, res) {
         type: "Feature",
         geometry:{
           type: geom.type,
-          coordinates: geom.coordinates
+          coordinates: [geom.coordinates]
         },
         properties: {
           date: date,
