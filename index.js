@@ -13,46 +13,45 @@ app.get('*', function(req, res) {
   }
   request.get(fullURL, function(err,reply,body){
     try{
-      var data = JSON.parse(body)
-    }
-    catch(err){
-      res.status(404).send('Not found');
-    }
+        var data = JSON.parse(body)
+        var items = data.item
 
-    var items = data.item
+        var items = items.map(function(item){
 
-    var items = items.map(function(item){
+        var geom = item.geometry[0]
+        var date = item.date
+        var ref  = item.reference[0]
+        var catagories = item.category.map(function(cat){return cat["#text"] })
+        var url = ref ? ref.url : ""
 
-      var geom = item.geometry[0]
-      var date = item.date
-      var ref  = item.reference[0]
-      var catagories = item.category.map(function(cat){return cat["#text"] })
-      var url = ref ? ref.url : ""
-
-      return({
-        type: "Feature",
-        geometry:{
-          type: geom.type,
-          coordinates: geom.coordinates
-        },
-        properties: {
-          date: date,
-          id: item.id,
-          title: item.title,
-          description: item.description,
-          url: url,
-          link: item.link,
-          catagories: catagories
-        }
+        return({
+          type: "Feature",
+          geometry:{
+            type: geom.type,
+            coordinates: geom.coordinates
+          },
+          properties: {
+            date: date,
+            id: item.id,
+            title: item.title,
+            description: item.description,
+            url: url,
+            link: item.link,
+            catagories: catagories
+          }
+        })
       })
+      var result ={
+        features: items,
+        type: "FeatureCollection"
+      }
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify(result))
     })
-    var result ={
-      features: items,
-      type: "FeatureCollection"
-    }
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(result))
-  })
+  }
+  catch(err){
+    res.status(404).send('Not found');
+  }
 });
 
 var port = (process.env.PORT || 5000)
