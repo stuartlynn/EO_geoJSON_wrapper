@@ -17,7 +17,14 @@ app.get('*', function(req, res) {
     }
     catch(err){
       res.status(404).send('Not found');
+      return
     }
+
+    if(err){
+      res.status(404).send(body ;
+      return
+    }
+
 
     var items = data.item
 
