@@ -21,7 +21,7 @@ app.get('*', function(req, res) {
     }
 
     if(err){
-      res.status(404).send(body ;
+      res.status(404).send(body);
       return
     }
 
