@@ -14,8 +14,7 @@ app.get('*', function(req, res) {
   request.get(fullURL, function(err,reply,body){
     var data = JSON.parse(body)
     var items = data.item
-
-
+    
     var items = items.map(function(item){
 
       var geom = item.geometry[0]
