@@ -49,7 +49,7 @@ app.get('*', function(req, res) {
   })
 });
 
-var port = process.env.port 
+var port = (process.env.PORT || 5000)
 
 var server = app.listen(port, function () {
   var host = server.address().address;
